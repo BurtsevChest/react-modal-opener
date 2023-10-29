@@ -20,7 +20,7 @@ import 'react-modal-opener/dist/index.css';
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 
-// startZindex - не обязательный параметр. Но если модлаьные окна будут пересакаться с другими вашими элементами, их всегда можно поднять повыше. Здесь или в стилях
+// startindex is an optional parameter. But if the modal windows intersect with your other elements, they can always be raised higher. Here or in styles
 root.render(
    <ModalWrapper startZindex={10}>
       <App/>
