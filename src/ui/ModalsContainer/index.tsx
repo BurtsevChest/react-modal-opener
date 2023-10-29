@@ -245,7 +245,7 @@ class ModalContainer extends React.Component<{startZindex?: number}, IModalConta
 
    render(): React.ReactNode {
       return (
-         <div id="popup" style={{ position: 'fixed', zIndex: `${this.state.startZindex}px`}}>
+         <div id="popup" style={{ position: 'fixed', zIndex: this.state.startZindex}}>
             {this.state.modalList.map(Modal => {
                return (
                   <ZIndex
