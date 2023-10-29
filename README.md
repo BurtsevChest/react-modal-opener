@@ -66,11 +66,11 @@ const MyComponent = () => {
             onOpen: (id) => {
                console.log('Sidebar opened. Sidebar id: ' + id);
             },
-            obClose: () => {
+            onClose: () => {
                // some code
             }
          },
-         animationDiration: 600,
+         animationDuration: 600,
          wrapperClassName: 'SomeClassName',
          position: 'left',
          modal: true
