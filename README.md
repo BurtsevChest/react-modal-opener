@@ -121,7 +121,7 @@ For example, if you open a window using DialogOpener with different props and th
 ## Demo
 Пример использования SidebarOpener и DialogOpener
 
-![Демо-пример использования библиотеки](.\docs\images\demo.gif)
+![Демо-пример использования библиотеки](https://github.com/BurtsevChest/react-modal-opener/blob/main/docs/images/demo.gif?raw=true)
 
 ## Custom Opener
 Below is an example of a simple implementation of a simple custom modal window
@@ -292,5 +292,4 @@ interface BaseOpener {
    */
    static closeAll: (): void;
 }
-````#   r e a c t - m o d a l - o p e n e r  
- 
+````
