@@ -21,6 +21,7 @@ export interface IOpenerConfig {
 
 interface IModalContainerState {
    modalList: IModalList;
+   startZindex: number;
 }
 
 /**
@@ -30,11 +31,12 @@ interface IModalContainerState {
  * Management and interaction with modal windows occurs through this singleton class.
  * For a specific type of modal window (for example, a sidebar), a wrapper class is written that interacts with this singleton. 
  */
-class ModalContainer extends React.Component<{}, IModalContainerState> {
-   constructor(props: {}) {
+class ModalContainer extends React.Component<{startZindex?: number}, IModalContainerState> {
+   constructor(props: {startZindex: number}) {
       super(props);
       this.state = {
-         modalList: []
+         modalList: [],
+         startZindex: props.startZindex || 1,
       };
    }
    //@ts-ignore
@@ -248,6 +250,7 @@ class ModalContainer extends React.Component<{}, IModalContainerState> {
                return (
                   <ZIndex
                      id={Modal.id}
+                     startZindex={this.state.startZindex}
                      key={Modal.id}
                   >
                      {/* TODO: we do not make a loader, because for some reason, with two lazy components, it constantly pops up, simulating a delay, although there is none at all, it's better to show an empty diva that nothing blinked*/}
@@ -298,13 +301,13 @@ class ModalContainer extends React.Component<{}, IModalContainerState> {
    );
  * ```
  */
-export const ModalWrapper: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
+export const ModalWrapper: React.FC<{ children?: React.ReactNode, startZindex?: number }> = ({ children, startZindex }) => {
    if (!children) {
-      return <ModalContainer />
+      return <ModalContainer startZindex={startZindex} />
    }
    return (
       <>
-         <ModalContainer />
+         <ModalContainer startZindex={startZindex} />
          {children}
       </>
    )

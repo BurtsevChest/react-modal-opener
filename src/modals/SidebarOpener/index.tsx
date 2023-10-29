@@ -59,10 +59,10 @@ export class SidebarOpener extends BaseOpener<AdditionalSidebarOptions> {
    protected modalComponent: LoadComponent = () => import('./template');
    protected type: string = 'sidebar';
    defaultStyles: React.CSSProperties = {
-      boxShadow: '0 0 15px rgba(128, 128, 128, 0.3)',
-      minWidth: '200px',
-      minHeight: '200px',
       backgroundColor: 'white',
+      boxShadow: 'rgb(0 0 0 / 40%) 0px 0px 40px',
+      minWidth: '700px',
+      minHeight: '700px',
    };
 
    /**

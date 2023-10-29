@@ -61,7 +61,7 @@ export class DialogOpener extends BaseOpener<AdditionalDialogOptions> {
     * Styles applied to the body of the modal window
     */
    defaultStyles: React.CSSProperties = {
-      boxShadow: '0 0 15px rgba(128, 128, 128, 0.3)',
+      boxShadow: 'rgb(0 0 0 / 40%) 0px 0px 40px',
       minWidth: '200px',
       minHeight: '200px',
       backgroundColor: 'white'
