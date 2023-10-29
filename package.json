@@ -18,6 +18,7 @@
    },
    "name": "react-modal-opener",
    "author": "BurtseffIlya",
+   "repository": "BurtsevChest/react-modal-opener",
    "devDependencies": {
       "@size-limit/preset-small-lib": "^10.0.1",
       "@types/react": "^18.2.33",
