@@ -11,7 +11,7 @@ npm i react-modal-opener
 ````
 
 ## Connect ModalWrapper and styles
-````
+```jsx
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import App from 'app/App';
@@ -34,11 +34,11 @@ root.render(
       <App/>
    </SomeProvider>
 );
-````
+```
 
 ## Usage
 ### Open sidabar
-````
+```jsx
 import { SidebarOpener } from "react-modal-opener";
 
 export const sidebar = new SidebarOpener();
@@ -54,7 +54,7 @@ sidebar.defaultStyles = {
 const MyComponent = () => {
    const openSidabar = () => {
       sidebar.open({
-         Component: () => import(./SidebarComponent');
+         Component: () => import('./SidebarComponent'),
          name: 'MainSidebar',
          props: {
             title: 'Hello Sidebar!',
@@ -81,7 +81,7 @@ const MyComponent = () => {
       <buttton click={openSidabar}>Open Sidebar</button>
    )
 }
-````
+```
 
 ### Close sidabar
 The component that you imported always receives an "id" - the ID of the modal window in which the component was placed. 
@@ -89,7 +89,7 @@ The component that you imported always receives an "id" - the ID of the modal wi
 Use the "id" and the same class instance to close the modal window.
 
 The closing animation can be implemented for different modal windows. If you have opened a modal window using a SidebarOpener instance, then close it using it.
-````
+```jsx
 import { sidebar } from './MyComponent';
 
 const SidebarComponent = ({title, sendData, id}) => {
@@ -107,7 +107,7 @@ const SidebarComponent = ({title, sendData, id}) => {
       <button onClick={closeSidebar}>Close Sidebar</button>
    )
 }
-````
+```
 
 ## What is Name?
 The name is intended so that you can not open a new modal window, but **change an already open one**.
@@ -127,27 +127,27 @@ Example of using SidebarOpener and DialogOpener
 Below is an example of a simple implementation of a simple custom modal window
 
 ### Custom Opener Class
-````
+``` jsx
 import React from 'react';
 import { CustomClassOpenerOptions, LoadComponent, BaseOpener } from 'react-modal-opener';
 
-<!-- Additional options belonging to a specific modal window -->
+// Additional options belonging to a specific modal window
 export interface AdditionalCustomOptions {
    animationDuration?: number;
    modal?: boolean;
 }
 
-<!-- The interface of the object that will be used to open a custom modal window -->
+// The interface of the object that will be used to open a custom modal window
 export type CustomOpenerOptions = CustomClassOpenerOptions & AdditionalCustomOptions;
 
 export class CustomOpener extends BaseOpener<AdditionalCustomOptions> {
-   <!-- Specifying the modal window component -->
+   // Specifying the modal window component
    protected modalComponent: LoadComponent = () => import('../modals/CustomOpener/template');
-   <!-- Coming up with a name for the type of modal window -->
+   // Coming up with a name for the type of modal window
    type = 'custom';
 
-   <!-- Not obligatory -->
-   <!-- Specifying default styles for the modal window component -->
+   //  Not obligatory
+   // Specifying default styles for the modal window component
    defaultStyles: React.CSSProperties = {
       boxShadow: '0 0 15px rgba(128, 128, 128, 0.3)',
       minWidth: '200px',
@@ -155,16 +155,16 @@ export class CustomOpener extends BaseOpener<AdditionalCustomOptions> {
       backgroundColor: 'white',
    };
 
-   <!-- Not obligatory -->
-   <!-- This is already a custom option, it is not provided by default. And its implementation falls on the shoulders of the developer -->
-   <!-- You can specify the default value here and substitute it in the open function, or you can specify it in the template component itself as the initial value -->
+   //  Not obligatory
+   // This is already a custom option, it is not provided by default. And its implementation falls on the shoulders of the developer
+   // You can specify the default value here and substitute it in the open function, or you can specify it in the template component itself as the initial value
    defaultAnimationDuration: number = 400;
 
-   <!-- Redefine the opening method if you need to change some input parameters. If you don't need to add any additional parameters (these are the ones in AdditionalCustomOptions), then you can not override this method -->
+   // Redefine the opening method if you need to change some input parameters. If you don't need to add any additional parameters (these are the ones in AdditionalCustomOptions), then you can not override this method
    open(options: CustomOpenerOptions): void {
       const sidebarData: BaseOpenerOptions<AdditionalCustomOptions> = {
          ...options,
-         <!-- Mandatory "otherOptions", this is where all the additional parameters of the modal window will go -->
+         // Mandatory "otherOptions", this is where all the additional parameters of the modal window will go
          otherOptions: {
             animationDuration: options?.animationDuration || this.defaultAnimationDuration,
             modal: options?.modal
@@ -173,34 +173,34 @@ export class CustomOpener extends BaseOpener<AdditionalCustomOptions> {
       super.open(sidebarData);
    }
 
-   <!-- Each modal window implements the closing method in its own way -->
+   // Each modal window implements the closing method in its own way
    close(id: number): void {
       CustomOpener.customClose(id);
    }
 
-   <!-- In this example, I decided to do it through a static method, because the method does not particularly depend on a specific instance of the class -->
+   // In this example, I decided to do it through a static method, because the method does not particularly depend on a specific instance of the class
    static customClose(id: number): void {
-      <!-- Get the duration of the animation, which was saved in "otherOptions" -->
+      // Get the duration of the animation, which was saved in "otherOptions"
       const duration: number | undefined = BaseOpener.getElementById<AdditionalCustomOptions>(id)?.otherOptions?.animationDuration;
 
-      <!-- Calling the delayed closure of the modal window -->
+      // Calling the delayed closure of the modal window
       if (duration) {
          BaseOpener.animateClose(id, duration);
       }
    }
 }
-````
+```
 
 ### Custom Opener Component
-````
+```jsx
 import React, { useEffect, useRef } from "react";
 import { IBaseModalComponent } from "../../types";
 import { AdditionalCustomOptions, CustomOpener } from ".";
 
-<!-- Use IBaseModalComponenr and previously created additional options to create a props interface for a custom modal window component -->
+// Use IBaseModalComponenr and previously created additional options to create a props interface for a custom modal window component
 type TCustom = IBaseModalComponent & AdditionalCustomOptions;
 
-<!-- The component of the custom modal window itself -->
+// The component of the custom modal window itself
 const Custom: React.FC<TCustom> = ({ id, children, status, styles, animationDuration = 400, modal }) => {
    const ref = useRef<HTMLDivElement>(null);
    const close = () => {
@@ -209,7 +209,7 @@ const Custom: React.FC<TCustom> = ({ id, children, status, styles, animationDura
       }
    }
 
-   <!-- Setting a css variable indicating the animation time of opening/closing the modal window -->
+   // Setting a css variable indicating the animation time of opening/closing the modal window
    useEffect(() => {
       ref.current?.style.setProperty("--custom_template-animation-duration", `${animationDuration / 1000}s`);
    }, [animationDuration]);
@@ -234,12 +234,11 @@ const Custom: React.FC<TCustom> = ({ id, children, status, styles, animationDura
  * Custom modal dialog
  */
 export default React.memo(Custom);
-
-````
+```
 
 ## BaseOpener Class Interface
 
-````
+```jsx
 interface BaseOpener {
    /**
     * The component of the modal window that will be used to open this type of modal window
@@ -292,4 +291,4 @@ interface BaseOpener {
    */
    static closeAll: (): void;
 }
-````
+```
