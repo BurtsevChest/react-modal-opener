@@ -119,9 +119,9 @@ Different modal windows will not conflict with each other.
 For example, if you open a window using DialogOpener with different props and the same name, it will not affect the modal window that you open using SidebarOpener in any way
 
 ## Demo
-Пример использования SidebarOpener и DialogOpener
+Example of using SidebarOpener and DialogOpener
 
-![Демо-пример использования библиотеки](https://github.com/BurtsevChest/react-modal-opener/blob/main/docs/images/demo.gif?raw=true)
+![Demo example of using libraries.](https://github.com/BurtsevChest/react-modal-opener/blob/main/docs/images/demo.gif?raw=true)
 
 ## Custom Opener
 Below is an example of a simple implementation of a simple custom modal window
