@@ -1,0 +1,167 @@
+.Sidebar {
+   position: fixed;
+}
+
+.Sidebar-wrapper {
+   background-color: #00000080;
+   width: 100%;
+   height: 100vh;
+   position: fixed;
+   top: 0;
+   left: 0;
+   animation: wrapperOpen var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-wrapper-close {
+   animation: wrapperClose var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-top {
+   width: 100%;
+   top: 0;
+   left: 0;
+   animation: open_top var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-top-close {
+   animation: close_top var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-bottom {
+   width: 100%;
+   bottom: 0;
+   left: 0;
+   animation: open_bottom var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-bottom-close {
+   animation: close_bottom var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-left {
+   height: 100%;
+   top: 0;
+   left: 0;
+   animation: open_left var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-left-close {
+   animation: close_left var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-right {
+   height: 100%;
+   top: 0;
+   right: 0;
+   animation: open_right var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+.Sidebar-right-close {
+   animation: close_right var(--sidebar-animation-duration) ease-in-out forwards;
+}
+
+@keyframes wrapperOpen {
+   from {
+      background-color: transparent;
+   }
+
+   to {
+      background-color: #00000080;
+   }
+}
+
+@keyframes wrapperClose {
+   from {
+      background-color: #00000080;
+   }
+
+   to {
+      background-color: transparent;
+   }
+}
+
+/* bottom position */
+@keyframes open_bottom {
+   from {
+      bottom: -100%;
+   }
+
+   to {
+      bottom: 0;
+   }
+}
+
+@keyframes close_bottom {
+   from {
+      bottom: 0;
+   }
+
+   to {
+      bottom: -100%;
+   }
+}
+
+@keyframes identifier {}
+
+/* left position */
+@keyframes open_left {
+   from {
+      left: -100%;
+   }
+
+   to {
+      left: 0;
+   }
+}
+
+@keyframes close_left {
+   from {
+      left: 0;
+   }
+
+   to {
+      left: -100%;
+   }
+}
+
+/* top position */
+@keyframes open_top {
+   from {
+      top: -100%;
+   }
+
+   to {
+      top: 0;
+   }
+}
+
+@keyframes close_top {
+   from {
+      top: 0;
+   }
+
+   to {
+      top: -100%;
+   }
+}
+
+/* right position */
+@keyframes open_right {
+   from {
+      right: -100%;
+   }
+
+   to {
+      right: 0;
+   }
+}
+
+@keyframes close_right {
+   from {
+      right: 0;
+   }
+
+   to {
+      right: -100%;
+   }
+}
