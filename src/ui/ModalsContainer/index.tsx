@@ -15,8 +15,8 @@ export interface IOpenerConfig {
    prepareToClose: (id: ModalID) => void;
    changeModal: <T>(id: ModalID, options: ModalOpenerOptions<T>) => void;
    getElementByID: <T>(id: ModalID) => BaseModalItem<T> | undefined;
-   closeByName: (name: ModalName) => void;
    animateClose: (id: ModalID, duration: number) => void;
+   closeByProperty: (key: string, value: unknown) => void;
 }
 
 interface IModalContainerState {
@@ -216,12 +216,36 @@ class ModalContainer extends React.Component<{startZindex?: number}, IModalConta
    }
 
    /**
-    * @param name Name of the modal window
-    * @returns Deletes all modal windows with the specified name
+    * Removes modal windows from the array by a specific field and its value. The values are compared via Object.is . But if the values are objects, then they are compared through deep comparison
+    * @param key - the name of the property by which you need to filter 
+    * @param value - property value
+    * 
+    * @example
+    * 
+    * ```
+    * function closeByName(name: ModalName) {
+    *    OpenerController.closeByProperty('name', name);
+    * }
+    * 
+    * or
+    * 
+    * function closeByStyles(styles: React.CSSProperties) {
+    *    OpenerControler.closeByProperty('styles', styles);
+    * }
+    * ```
     */
-   closeByName(name: ModalName) {
+   closeByProperty(key: string, value: unknown | object) {
       this.setState({
-         modalList: this.state.modalList.filter(modal => modal.name !== name)
+         modalList: this.state.modalList.filter(modal => {
+            //@ts-ignore
+            const modalKeyValue = modal[key];
+
+            if (typeof modalKeyValue === 'object' && typeof value === 'object') {
+               return !isEqual(modalKeyValue || undefined, value || undefined);
+            }
+
+            return !Object.is(modalKeyValue, value);
+         })
       });
    }
 
@@ -231,11 +255,11 @@ class ModalContainer extends React.Component<{startZindex?: number}, IModalConta
          open: this.open.bind(this),
          close: this.close.bind(this),
          closeAll: this.closeAll.bind(this),
-         closeByName: this.closeByName.bind(this),
          getElementByID: this.getElementByID.bind(this),
          prepareToClose: this.prepareToClose.bind(this),
          changeModal: this.changeModal.bind(this),
          animateClose: this.animateClose.bind(this),
+         closeByProperty: this.closeByProperty.bind(this),
       });
    }
 
@@ -397,12 +421,27 @@ export class OpenerController {
    }
 
    /**
-    * @param name Name of the modal window
-    * @returns Deletes all modal windows with the specified name
+    * Removes modal windows from the array by a specific field and its value. The values are compared via Object.is . But if the values are objects, then they are compared through deep comparison
+    * @param key - the name of the property by which you need to filter 
+    * @param value - property value
+    * 
+    * @example
+    * 
+    * ```
+    * function closeByName(name: ModalName) {
+    *    OpenerController.closeByProperty('name', name);
+    * }
+    * 
+    * or
+    * 
+    * function closeByStyles(styles: React.CSSProperties) {
+    *    OpenerControler.closeByProperty('styles', styles);
+    * }
+    * ```
     */
-   static closeByName(name: ModalName): void {
+   static closeByProperty(key: string, value: unknown | object): void {
       if (OpenerController.inst.opener) {
-         return OpenerController.inst.opener.closeByName(name);
+         return OpenerController.inst.opener.closeByProperty(key, value);
       };
    }
 

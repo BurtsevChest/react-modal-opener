@@ -11,6 +11,8 @@ npm i react-modal-opener
 ````
 
 ## Connect ModalWrapper and styles
+Import Modalwrapper and styles from **'react-modal-opener'**. And **wrap the Modalwrapper around your App component** or put it next to it. But remember, **inside React.StrictMode Modalwrapper will not work**.
+
 ```jsx
 import React from 'react';
 import { createRoot } from 'react-dom/client';
@@ -291,5 +293,10 @@ interface BaseOpener {
    * @returns Closes all modal windows
    */
    static closeAll: (): void;
+
+   /**
+    * @returns Deletes all modal windows with a specific type
+    */
+   closeByType(): void 
 }
 ```

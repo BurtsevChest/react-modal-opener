@@ -73,7 +73,7 @@ export abstract class BaseOpener<T> {
    * @returns Deletes all modal windows with the specified name
    */
    static closeByName(name: ModalName): void {
-      OpenerController.closeByName(name);
+      OpenerController.closeByProperty('name', name);
    }
 
    /**
@@ -81,5 +81,12 @@ export abstract class BaseOpener<T> {
    */
    static closeAll(): void {
       OpenerController.closeAll();
+   }
+
+   /**
+    * @returns Deletes all modal windows with a specific type
+    */
+   closeByType(): void {
+      OpenerController.closeByProperty('type', this.type);
    }
 }
